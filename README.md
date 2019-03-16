@@ -2,8 +2,8 @@
 ### CircuitJS1 - Electronic Circuit Simulation in your Browser
 
 | Repository | Version | Status | Avg Time | Last Commit |
-|:---------- |:------  |:------ |:-------- |:----------- |
-| **This**   | `2.2.3` | [![Maintenance][5]][6] | [![Average time to resolve an issue][9]][10] | [![GitHub last commit][7]][8] |
+|:----------:|:------  |:------ |:-------- |:----------- |
+| *`This`*   | `2.2.3x` | [![Maintenance][5]][6] | [![Average time to resolve an issue][9]][10] | [![GitHub last commit][7]][8] |
 | [*Original*](https://github.com/pfalstad/circuitjs1) | `2.2.3` | [![Maintenance][11]][12] | [![Average time to resolve an issue][15]][16] | [![GitHub last commit][13]][14] |
 
 
@@ -38,12 +38,12 @@ please refer to the original *CircuitJS1* repositories and maintainers:
 
 ---
 
-Screenshots:
+#### Screenshots
 
-![Full](./docs/screen1.png)
-<sub>Holding mouse over a component shows all its values.</sub>
+![Full](./docs/screen1.png)  
+<sub>Hovering the mouse over a component shows all its values.</sub>
 
-![Full](./docs/screen2.png)
+![Full](./docs/screen2.png)  
 
 ---
 
@@ -62,7 +62,7 @@ For an up-to-date hosted version of the application see:
 * Paul's Page: [http://www.falstad.com/circuit/](http://www.falstad.com/circuit/)
 * Iain's Page: [http://lushprojects.com/circuitjs/](http://lushprojects.com/circuitjs/)
 
-**FAQ:**
+#### FAQ  
 <sub>
 WTF is GWT? - It is `Google Web-Toolkit`, which for our purposes is a Java to JS compiler.  
 WTF is WAR? - It is just a renamed ZIP file called `Web Application aRchive` to indicate its contents and use.
@@ -134,10 +134,8 @@ need to do is make sure you have Java 8 and Maven in your PATH.
 * (a) First make sure you have your java JDK in your Windows path.
 * (b) Also make sure you have the `JAVA_HOME` variable set to that same JDK path. 
 
-**NOTE:** *If you already have the SDK in your PATH's, you must   
-change to JDK, as it contains the same as SDK, but also have  
-the additional and required compiler tools in it.*
-
+**NOTE:** :warning: *If you already have the SDK in your PATH's, you must change to JDK,  
+as it also contain the additional and required compiler tools.*
 
 
 Open a (Windows) *Administrator* CMD shell
@@ -234,14 +232,45 @@ mvn install
 ```
 
 This will download a large number of small Maven packages and then compile the app.
-The entire procedure should not take more than a minute. When it is done, simply
-point your browser to:  
+The entire procedure should not take more than a minute. When it is done, web-app
+can be found in `target/site`. 
+
+
+Now simply point your browser to:  
 **`file:///C:/path/to/circuitjs1/target/site/circuitjs.html`**
 
 Enjoy!
 
 If you want to deploy *circuitjs* to your own site, you need to copy the content 
-of `target/site` to your *www* base directory.
+of `target/site` to your web server's base directory. 
+
+```bash
+target/site/
+├── circuitjs1
+│   ├── circuits
+│   ├── gwt
+│   ├── 1FA03078989A34370C839B2D39AFBCA8.cache.js
+│   ├── 2D5F24823515F76002DFF062319172F3.cache.js
+│   ├── 35ECFFC76001A3331001AF36424E1D5F.cache.js
+│   ├── 4E6747B5437475907E68D0E3BD23F3D7.cache.js
+│   ├── circuitjs1.devmode.js
+│   ├── circuitjs1.nocache.js
+│   ├── clear.cache.gif
+│   ├── compilation-mappings.txt
+│   ├── ED0AE96EA175D6E7FCF6C6B0271A8B05.cache.js
+│   ├── locale_da.txt
+│   ├── locale_de.txt
+│   ├── locale_pl.txt
+│   ├── locale_ru.txt
+│   └── setuplist.txt
+├── circuitjs.html
+├── customfunction.html
+├── customlogic.html
+├── iframe.html
+├── index.html
+├── mosfet-beta.html
+└── shortrelay.php
+```
 
 ---
 
@@ -314,7 +343,7 @@ gradle -v
 Finally, to compile and build your site with Gradle, run this:
 ```bash
 # 1. Run Gradle build with verbose output:
-gradle build --console verbose --info
+gradle compileGwt --console verbose --info
 # 2. Create the web-site directory from the build files:
 gradle makeSite --console verbose --info
 # 3. To cleanup and remove the target, build and site directories
@@ -444,6 +473,7 @@ This is just an artifact of the simulation. To see proper currents, select a wir
 After you have compiled the application using Maven or Gradle (as shown above), you need to copy the resulting 
 files on to your webserver. Once that is done, you also need to do some configuration.
 
+* To set the default startup circuit, edit *`setuplist.txt`* and add a **`>`** in front of the `<circuit>.txt`.
 * Customize the header of the file **`circuitjs1.html`** to include your tracking codes and favicon etc.
 * Customize the **`iframe.html`** file to include any branding you want, to appear in the right hand panel of the application.
 * *`optional`* - Customize **`shortrelay.php`** server-side script to act as a relay to the [TinyUrl](http://tinyurl.com/) URL shortening service
@@ -465,14 +495,14 @@ The following URL parameters are supported:
 
 ```js
 .../circuitjs1.html?cct=<string>                     // Load the circuit from the encoded URL <string> itself
-.../circuitjs1.html?startCircuit=<filename>          // Loads the circuit named "filename" from the "Circuits" directory
-.../circuitjs1.html?startCircuitLink=<URL>           // Loads the circuit from the specified URL (Need Dropbox!)
+.../circuitjs1.html?startCircuit=<filename>          // Loads the circuit named "filename" from ./circuits/
+.../circuitjs1.html?startCircuitLink=<URL>           // Loads the circuit from the specified (Dropbox) URL
 .../circuitjs1.html?euroResistors=true               // Force "Euro" style (rectangular) resistors *
 .../circuitjs1.html?usResistors=true                 // Force "US" style (wiggly lines) resistors *
 .../circuitjs1.html?whiteBackground=<true|false>     // Use a white background (default: black)
 .../circuitjs1.html?conventionalCurrent=<true|false> // Use coventional current flow (from + to -)
 ```
-<sub>`*` - If not specified the resistor style will be based on the browser's language preferences.</sub>
+`*` - If not specified the resistor style will be based on the browser's language preferences.
 
 
 ### Building as an Electron application

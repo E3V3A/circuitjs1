@@ -86,6 +86,8 @@ else
     wget https://raw.githubusercontent.com/E3V3A/circuitjs1/master/pom.xml
 fi
 
+# ToDo: Add check for build.gradle
+
 #--------------------------------------
 # (3) Update Version string in: pom.xml
 #--------------------------------------
@@ -119,7 +121,7 @@ sed -E "s/^(.{1}<version>)([0-9\.]+)(<\/version>)/\1$SVER\3/" ./pom.xml | grep -
 # from:     <classpathentry kind="src" path="src"/>
 # to:       <classpathentry kind="src" path="src/main/java"/>
 # wget -q https://github.com/sharpie7/circuitjs1/raw/master/.classpath
-echo -n "Changing 'classpathentry' in: .classpath "
+echo -en "\nChanging 'classpathentry' in: .classpath "
 sed -E 's/path="src"/path="src\/main\/java"/' -i ./.classpath && sayok || fail
 
 #--------------------------------------
@@ -158,6 +160,14 @@ echo -n "Checking .gitignore for Maven & Gradle items:  "
 cat .gitignore |grep -E "For Gradle builds" >/dev/null && sayok || fix_ignore
 
 #--------------------------------------
+# (7) All is Good!
+#--------------------------------------
+echo -e "\nYour installation seem good!\nYou can now build using either Gradle or Maven."
+echo "For Gradle, run:"
+echo "  gradle compileGwt"
+echo "  gradle makeSite"
+echo "For Maven, run:"
+echo "  mvn install"
 
 echo
 echo "Done!"
